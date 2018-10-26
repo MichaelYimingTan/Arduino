@@ -40,6 +40,10 @@ void loop(){
         Keyboard.press('a');
         delay(100);
     }
+    if(isPressedRight==HIGH){
+        Keyboard.press('d');
+        delay(100);
+    }
 
 
     
