@@ -1,1 +1,42 @@
-2018/10/25
+#include "Keyboard.h"
+const int Up_Button = 2;
+const int Down_Button = 3;
+const int Left_Button = 4;
+const int Right_Button = 5;
+
+int isPressedUp = 0;
+int isPressedDown = 0;
+int isPressedLeft = 0;
+int isPressedRight = 0;
+
+void setup(){
+    pinMode(Up_Button, INPUT);
+    pinMode(Down_Button, INPUT);
+    pinMode(Left_Button, INPUT);
+    pinMode(Right_Button, INPUT);
+    
+
+    Keyboard.begin();
+}
+
+
+void loop(){
+
+     isPressedUp = digitalRead(Up_Button);
+     isPressedDown = digitalRead(Down_Button);
+     isPressedLeft = digitalRead(Left_Button);
+     isPressedRight = digitalRead(Right_Button);
+
+    if(isPressedUp==HIGH){
+        Keyboard.press('w');
+        delay(100);
+    }
+
+
+    
+    
+    Keyboard.releaseAll();
+
+
+}
+
