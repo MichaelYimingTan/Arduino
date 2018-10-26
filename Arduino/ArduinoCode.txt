@@ -33,7 +33,11 @@ void loop(){
     }
     
     if(isPressedDown==HIGH){
-        Keyboard.press('d');
+        Keyboard.press('s');
+        delay(100);
+    }
+    if(isPressedLeft==HIGH){
+        Keyboard.press('a');
         delay(100);
     }
 
