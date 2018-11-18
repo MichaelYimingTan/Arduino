@@ -10,18 +10,18 @@ namespace UnityStandardAssets.Vehicles.Car
         FourWheelDrive
     }
 
-    internal enum SpeedType
-    {
-        MPH,
-        KPH
-    }
+ //   internal enum SpeedType
+   // {
+     //   MPH,
+       // KPH
+//    }
 
     public class CarController : MonoBehaviour
     {
         [SerializeField] private CarDriveType m_CarDriveType = CarDriveType.FourWheelDrive;
         [SerializeField] private WheelCollider[] m_WheelColliders = new WheelCollider[4];
         [SerializeField] private GameObject[] m_WheelMeshes = new GameObject[4];
-        //[SerializeField] private WheelEffects[] m_WheelEffects = new WheelEffects[4];
+     //  [SerializeField] private WheelEffects[] m_WheelEffects = new WheelEffects[4];
         [SerializeField] private Vector3 m_CentreOfMassOffset;
         [SerializeField] private float m_MaximumSteerAngle;
         [Range(0, 1)] [SerializeField] private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
@@ -30,7 +30,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_ReverseTorque;
         [SerializeField] private float m_MaxHandbrakeTorque;
         [SerializeField] private float m_Downforce = 100f;
-        [SerializeField] private SpeedType m_SpeedType;
+    //    [SerializeField] private SpeedType m_SpeedType;
         [SerializeField] private float m_Topspeed = 200;
         [SerializeField] private static int NoOfGears = 5;
         [SerializeField] private float m_RevRangeBoundary = 1f;
@@ -72,24 +72,6 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
 
-        /*private void GearChanging()
-        {
-            float f = Mathf.Abs(CurrentSpeed/MaxSpeed);
-            float upgearlimit = (1/(float) NoOfGears)*(m_GearNum + 1);
-            float downgearlimit = (1/(float) NoOfGears)*m_GearNum;
-
-            if (m_GearNum > 0 && f < downgearlimit)
-            {
-                m_GearNum--;
-            }
-
-            if (f > upgearlimit && (m_GearNum < (NoOfGears - 1)))
-            {
-                m_GearNum++;
-            }
-        }
-        */
-
         // simple function to add a curved bias towards 1 for a value in the 0-1 range
         private static float CurveFactor(float factor)
         {
@@ -103,8 +85,8 @@ namespace UnityStandardAssets.Vehicles.Car
             return (1.0f - value)*from + value*to;
         }
 
-        /*
-        private void CalculateGearFactor()
+
+   /*     private void CalculateGearFactor()
         {
             float f = (1/(float) NoOfGears);
             // gear factor is a normalised representation of the current speed within the current gear's range of speeds.
@@ -113,7 +95,7 @@ namespace UnityStandardAssets.Vehicles.Car
             m_GearFactor = Mathf.Lerp(m_GearFactor, targetGearFactor, Time.deltaTime*5f);
         }
 
-/*
+
         private void CalculateRevs()
         {
             // calculate engine revs (for display / sound)
@@ -123,9 +105,9 @@ namespace UnityStandardAssets.Vehicles.Car
             var revsRangeMin = ULerp(0f, m_RevRangeBoundary, CurveFactor(gearNumFactor));
             var revsRangeMax = ULerp(m_RevRangeBoundary, 1f, gearNumFactor);
             Revs = ULerp(revsRangeMin, revsRangeMax, m_GearFactor);
-        }
+        }*/
 
-    */
+
         public void Move(float steering, float accel, float footbrake, float handbrake)
         {
             for (int i = 0; i < 4; i++)
@@ -163,11 +145,10 @@ namespace UnityStandardAssets.Vehicles.Car
             }
 
 
-           // CalculateRevs();
-           // GearChanging();
+         //   CalculateRevs();
 
             AddDownForce();
-
+            CheckForWheelSpin();
             TractionControl();
         }
 
@@ -175,21 +156,21 @@ namespace UnityStandardAssets.Vehicles.Car
         private void CapSpeed()
         {
             float speed = m_Rigidbody.velocity.magnitude;
-            switch (m_SpeedType)
-            {
-                case SpeedType.MPH:
+          //  switch (m_SpeedType)
+            //{
+              //  case SpeedType.MPH:
 
                     speed *= 2.23693629f;
                     if (speed > m_Topspeed)
                         m_Rigidbody.velocity = (m_Topspeed/2.23693629f) * m_Rigidbody.velocity.normalized;
-                    break;
+                //    break;
 
-                case SpeedType.KPH:
-                    speed *= 3.6f;
-                    if (speed > m_Topspeed)
-                        m_Rigidbody.velocity = (m_Topspeed/3.6f) * m_Rigidbody.velocity.normalized;
-                    break;
-            }
+               // case SpeedType.KPH:
+                 //   speed *= 3.6f;
+                   // if (speed > m_Topspeed)
+                     //   m_Rigidbody.velocity = (m_Topspeed/3.6f) * m_Rigidbody.velocity.normalized;
+                   // break;
+      //      }
         }
 
 
@@ -263,6 +244,43 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
 
+        // checks if the wheels are spinning and is so does three things
+        // 1) emits particles
+        // 2) plays tiure skidding sounds
+        // 3) leaves skidmarks on the ground
+        // these effects are controlled through the WheelEffects class
+        private void CheckForWheelSpin()
+        {
+            // loop through all wheels
+            for (int i = 0; i < 4; i++)
+            {
+                WheelHit wheelHit;
+                m_WheelColliders[i].GetGroundHit(out wheelHit);
+
+                // is the tire slipping above the given threshhold
+                if (Mathf.Abs(wheelHit.forwardSlip) >= m_SlipLimit || Mathf.Abs(wheelHit.sidewaysSlip) >= m_SlipLimit)
+                {
+       //            m_WheelEffects[i].EmitTyreSmoke();
+
+                    // avoiding all four tires screeching at the same time
+                    // if they do it can lead to some strange audio artefacts
+            /*       if (!AnySkidSoundPlaying())
+                    {
+         //               m_WheelEffects[i].PlayAudio();
+                    }*/
+                    continue;
+                }
+
+                // if it wasnt slipping stop all the audio
+         //       if (m_WheelEffects[i].PlayingAudio)
+           //     {
+             //       m_WheelEffects[i].StopAudio();
+               // }
+                // end the trail generation
+                //m_WheelEffects[i].EndSkidTrail();
+            }
+        }
+
         // crude traction control that reduces the power to wheel if the car is wheel spinning too much
         private void TractionControl()
         {
@@ -315,6 +333,16 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
 
-    
+    /*   private bool AnySkidSoundPlaying()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (m_WheelEffects[i].PlayingAudio)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }*/
     }
 }
