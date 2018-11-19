@@ -344,8 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62479c3465024b48b42983b1b2eeaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
-  skidParticles: {fileID: 0}
 --- !u!146 &512857172
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -497,7 +495,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fffafd711dc1dbc478a49705cfe1ce3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  car: {fileID: 1995109696}
 --- !u!23 &580800578
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -683,8 +680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62479c3465024b48b42983b1b2eeaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
-  skidParticles: {fileID: 0}
 --- !u!146 &703936000
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -1213,8 +1208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62479c3465024b48b42983b1b2eeaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
-  skidParticles: {fileID: 0}
 --- !u!146 &1064553890
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -1751,8 +1744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62479c3465024b48b42983b1b2eeaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkidTrailPrefab: {fileID: 400000, guid: 4b6aa99de5d21424eab6ae279f31475b, type: 2}
-  skidParticles: {fileID: 0}
 --- !u!82 &1851027457
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1953,9 +1944,7 @@ MonoBehaviour:
   m_TractionControl: 1
   m_FullTorqueOverAllWheels: 2500
   m_ReverseTorque: 500
-  m_MaxHandbrakeTorque: 100000000
   m_Downforce: 100
-  m_SpeedType: 0
   m_Topspeed: 150
   m_RevRangeBoundary: 1
   m_SlipLimit: 0.3
