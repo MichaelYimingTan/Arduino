@@ -8,6 +8,11 @@ int isPressedUp = 0;
 int isPressedDown = 0;
 int isPressedLeft = 0;
 int isPressedRight = 0;
+
+int deltaTime = 10;//in mils
+
+int velocity = 0;
+int acel = 10;
 void setup(){
   Serial.begin(9600);
     
@@ -27,18 +32,18 @@ void setup(){
 
 void loop(){
      Serial.print("Hello Michael\n");
-      delay(10);
+      delay(deltaTime);
      isPressedUp = digitalRead(Up_Button);
      if(isPressedUp==HIGH){
        Keyboard.write('w');
-    
+      velocity += acel*deltaTime;
      }
       
 
     isPressedDown = digitalRead(Down_Button);
      if(isPressedDown==HIGH){
        Keyboard.write('s');
-
+       velocity -= acel*deltaTime;
      }
      
     isPressedLeft = digitalRead(Left_Button); 
@@ -53,5 +58,9 @@ void loop(){
        Keyboard.write('d');
        
      }
+
+     
+
+  Serial.print(velocity);    
   
 }
