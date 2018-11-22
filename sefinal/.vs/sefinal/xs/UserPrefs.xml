@@ -1,9 +1,13 @@
 ﻿<Properties StartupConfiguration="{880A8502-6C7C-CBEE-78E2-9D3F94E19F91}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/controller.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sound.cs">
     <Files>
       <File FileName="Assets/controller.cs" Line="13" Column="1" />
-      <File FileName="Assets/Standard Assets/Vehicles/Car/Scripts/CarController.cs" Line="162" Column="1" />
+      <File FileName="Assets/Standard Assets/Vehicles/Car/Scripts/CarController.cs" Line="43" Column="58" />
+      <File FileName="Assets/Standard Assets/Vehicles/Car/Scripts/CarUserControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/Standard Assets/Vehicles/Car/Scripts/CarAIControl.cs" Line="1" Column="1" />
+      <File FileName="Assets/AudioManager.cs" Line="4" Column="42" />
+      <File FileName="Assets/Sound.cs" Line="1" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
