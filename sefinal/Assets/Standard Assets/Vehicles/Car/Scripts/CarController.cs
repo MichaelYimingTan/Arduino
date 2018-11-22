@@ -51,12 +51,17 @@ namespace UnityStandardAssets.Vehicles.Car
         public float AccelInput { get; private set; }
 
 
+
+        private int count;
+        public Text countText;
+
         
 
         // Use this for initialization
         private void Start()
         {
-
+            count = 0;
+            setCountText();
             
             m_WheelMeshLocalRotations = new Quaternion[4];
             for (int i = 0; i < 4; i++)
@@ -204,7 +209,24 @@ namespace UnityStandardAssets.Vehicles.Car
             }
         }
 
-        
+
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Pick Up"))
+            {
+                other.gameObject.SetActive(false);
+                count++;
+                setCountText();
+            }
+
+        }
+
+        void setCountText() {
+
+            countText.text = "Score: " + count.ToString();
+        }
+
         private void AdjustTorque(float forwardSlip)
         {
             if (forwardSlip >= m_SlipLimit && m_CurrentTorque >= 0)
